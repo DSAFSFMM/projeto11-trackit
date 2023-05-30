@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Card from "../components/Card";
+import CardFechado from "../components/CardFechado";
 
 
 export default function Habitos(){
@@ -14,6 +16,8 @@ export default function Habitos(){
                         <p>+</p>
                     </button>
                 </Topo>
+                <CardFechado/>
+                <Card/>
                 <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </Body>
             <Footer/>

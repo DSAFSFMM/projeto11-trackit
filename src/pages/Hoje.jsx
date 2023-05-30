@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CardDia from "../components/CardDia";
 
 
 export default function Hoje(){
@@ -12,6 +13,7 @@ export default function Hoje(){
                     Segunda, 17/05
                     <p>Nenhum hábito concluído ainda</p>
                 </Topo>
+                <CardDia/>
             </Body>
             <Footer/>
         </Tela>
