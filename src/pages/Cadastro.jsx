@@ -1,17 +1,62 @@
 import styled from "styled-components";
 import logo from "./../assets/logo.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import axios from "axios";
+import BASE_URL from "../constants/BASE_URL";
 
 export default function Cadastro(){
+
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [nome, setNome] = useState("");
+    const [foto, setFoto] = useState("");
+    const [habilitado, setHabilitado] = useState(false);
+
+    function fazCadastro(event){
+        event.preventDefault();
+        setHabilitado(true);
+        const cadastro = {
+            email: email,
+            name: nome,
+            image: foto,
+            password: senha
+        };
+        axios.post(`${BASE_URL}/auth/sign-up`, cadastro)
+            .then(()=>navigate("/"))
+            .catch(()=>{
+                alert("Erro no cadastro, por favor tente novamente");
+                setEmail("");
+                setFoto("");
+                setNome("");
+                setSenha("");
+                setHabilitado(false);
+            });
+    }
+
     return(
         <Tela>
-            <img src={logo} alt="logo" />
-            <Formulario>
-                <input type="email" placeholder="email"/>
-                <input type="text" placeholder="senha"/>
-                <input type="text" placeholder="nome"/>
-                <input type="text" placeholder="foto"/>
-                <button type="submit">Cadastrar</button>
+            <img src={logo} alt="logo"/>
+            <Formulario onSubmit={fazCadastro} habilitado={habilitado}>
+                <input type="email" placeholder="email" value={email} onChange={(event)=>setEmail(event.target.value)} required disabled={habilitado}/>
+                <input type="password" placeholder="senha" value={senha} onChange={(event)=>setSenha(event.target.value)} required disabled={habilitado}/>
+                <input type="text" placeholder="nome" value={nome} onChange={(event)=>setNome(event.target.value)} required disabled={habilitado}/>
+                <input type="text" placeholder="foto" value={foto} onChange={(event)=>setFoto(event.target.value)} required disabled={habilitado}/>
+                <button type="submit" disabled={habilitado}>{
+                !habilitado?"Cadastrar":<ThreeDots 
+                height="50" 
+                width="50" 
+                radius="9"
+                color="white" 
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}/>
+                }
+                </button>
             </Formulario>
             <Link to={`/`}>
                 <p>Já tem uma conta? Faça login!</p>
@@ -53,10 +98,14 @@ const Formulario = styled.form`
         border-radius: 5px;
         font-size: 20px;
         line-height: 25px;
-        color: #DBDBDB;
+        color: ${(props)=>props.habilitado?"#AFAFAF":"#DBDBDB" };
+        background-color: ${(props)=>props.habilitado && "#F2F2F2"};
         padding-left: 11px;
     }
     button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 300px;
         height: 45px;
         font-size: 20px;
@@ -66,5 +115,6 @@ const Formulario = styled.form`
         border-radius: 5px;
         margin-bottom: 25px;
         border: none;
+        filter: ${(props)=>props.habilitado && "opacity(0.7)"};
     }
 `;
