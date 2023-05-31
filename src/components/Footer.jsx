@@ -33,12 +33,10 @@ const Bottom = styled.div`
     align-items: center;
     padding: 0 36px 0 36px;
     div{
+        margin-bottom: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        position: absolute;
-        bottom: 10px;
-        left: 142px;
         width: 91px;
         height: 91px;
         background: #52B6FF;
