@@ -26,6 +26,7 @@ const Bottom = styled.div`
     height: 70px;
     background-color: white;
     position: fixed;
+    z-index: 10;
     bottom: 0;
     left: 0;
     display: flex;

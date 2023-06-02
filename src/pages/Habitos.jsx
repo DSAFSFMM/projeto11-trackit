@@ -3,9 +3,44 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import CardFechado from "../components/CardFechado";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { Contexto } from "../components/Contexto";
+import axios from "axios";
+import BASE_URL from "../constants/BASE_URL";
+import { useState } from "react";
 
 
 export default function Habitos(){
+
+    const {user} = useContext(Contexto);
+    const [tasks, setTasks] = useState(null);
+    const [novoCard, setNovoCard] = useState(false);
+    const [atualiza, setAtualiza] = useState(0);
+
+    const config = {
+        headers:{
+            Authorization: `Bearer ${user.token}`
+        }
+    }
+    useEffect(()=>{
+        axios.get(`${BASE_URL}/habits`, config)
+            .then((resposta)=>{setTasks(resposta.data)})
+            .catch((erro)=>{console.log(erro.response)});
+    }, [atualiza]); 
+
+    if(tasks === null){
+        return(
+            <Tela>
+                <Header/>
+                <Body>
+                    <p>Carregando habitos...</p>
+                </Body>
+                <Footer/>
+            </Tela>
+        )
+    }
+
     return(
         <Tela>
             <Header/>
@@ -13,12 +48,12 @@ export default function Habitos(){
                 <Topo>
                     Meus hábitos
                     <button>
-                        <p>+</p>
+                        <p onClick={()=>setNovoCard(true)}>+</p>
                     </button>
                 </Topo>
-                <CardFechado/>
-                <Card/>
-                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                {tasks.map((task)=><CardFechado key={task.id} task={task} tasks={tasks} setTasks={setTasks} setAtualiza={setAtualiza}/>)}
+                {novoCard && <Card setAtualiza={setAtualiza} setNovoCard={setNovoCard}/>}
+                {tasks.length === 0 && <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>}
             </Body>
             <Footer/>
         </Tela>
@@ -29,6 +64,7 @@ const Tela = styled.div`
     background-color: #F2F2F2;
     min-height: 100dvh;
     padding-top: 22px;
+    padding-bottom: 92px;
 `;
 
 const Body = styled.div`

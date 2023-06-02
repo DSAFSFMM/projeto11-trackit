@@ -5,11 +5,14 @@ import { useState } from "react";
 import axios from "axios";
 import BASE_URL from "../constants/BASE_URL";
 import { ThreeDots } from "react-loader-spinner";
+import { useContext } from "react";
+import { Contexto } from "../components/Contexto";
 
 export default function Login() {
 
-    const navigate = useNavigate();
+    const {setUser} = useContext(Contexto);
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [habilitado, setHabilitado] = useState(false);
@@ -22,7 +25,10 @@ export default function Login() {
             password: senha
         };
         axios.post(`${BASE_URL}/auth/login`, dados)
-            .then(() => navigate("/hoje"))
+            .then((resposta) =>{ 
+                setUser(resposta.data);
+                navigate("/hoje");
+            })
             .catch(() => {
                 alert("Erro no login, tente novamente");
                 setEmail("");
@@ -107,6 +113,8 @@ const Formulario = styled.form`
         border-radius: 5px;
         margin-bottom: 25px;
         border: none;
-        filter: ${(props) => props.habilitado && "opacity(0.7)"};
+    }
+    button:disabled{
+        filter: opacity(0.7);
     }
 `;
