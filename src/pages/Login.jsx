@@ -41,9 +41,9 @@ export default function Login() {
         <Tela>
             <img src={logo} alt="logo" />
             <Formulario onSubmit={login} habilitado={habilitado}>
-                <input type="email" placeholder="email" value={email} onChange={(event) => setEmail(event.target.value)} disabled={habilitado} required />
-                <input type="password" placeholder="senha" value={senha} onChange={(event) => setSenha(event.target.value)} disabled={habilitado} required />
-                <button type="submit" disabled={habilitado}>{
+                <input data-test="email-input" type="email" placeholder="email" value={email} onChange={(event) => setEmail(event.target.value)} disabled={habilitado} required />
+                <input data-test="password-input" type="password" placeholder="senha" value={senha} onChange={(event) => setSenha(event.target.value)} disabled={habilitado} required />
+                <button data-test="login-btn" type="submit" disabled={habilitado}>{
                     !habilitado ? "Entrar" : <ThreeDots
                         height="50"
                         width="50"
@@ -56,7 +56,7 @@ export default function Login() {
                 }
                 </button>
             </Formulario>
-            <Link to={`/cadastro`}>
+            <Link data-test="signup-link" to={`/cadastro`}>
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
         </Tela>

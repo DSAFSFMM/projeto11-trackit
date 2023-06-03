@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 export default function Footer(){
     return(
-        <Bottom>
-            <Link to={`/habitos`}>
+        <Bottom data-test="menu">
+            <Link data-test="history-link" to={`/habitos`}>
                 <p>Hábitos</p>
             </Link>
-            <Link to={`/hoje`}>
+            <Link data-test="today-link" to={`/hoje`}>
                 <div>Hoje</div>
             </Link>
-            <Link to={`/historico`}>
+            <Link data-test="habit-link" to={`/historico`}>
                 <p>Histórico</p>
             </Link>
         </Bottom>

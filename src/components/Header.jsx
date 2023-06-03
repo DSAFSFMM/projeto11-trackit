@@ -9,9 +9,9 @@ export default function Header(){
     const {user} = useContext(Contexto);
 
     return(
-        <Top>
+        <Top data-test="header">
             <img src={logo} alt="logo" />
-            <ProfilePicture src={user.image} alt="profilePicture" />
+            <ProfilePicture data-test="avatar" src={user.image} alt="profilePicture" />
         </Top>
     );
 }

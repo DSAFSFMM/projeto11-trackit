@@ -25,12 +25,12 @@ export default function CardFechado(props){
     }
 
     return(
-        <Task>
-            <p>{task.name}</p>
+        <Task data-test="habit-container">
+            <p data-test="habit-name">{task.name}</p>
             <Days>
-                {days.map((day, index)=> <Day key={index} selecionado={task.days.includes(index)} disabled>{day}</Day>)}
+                {days.map((day, index)=> <Day data-test="habit-day" key={index} selecionado={task.days.includes(index)} disabled>{day}</Day>)}
             </Days>
-            <ion-icon onClick={removeTask} name="trash-outline"></ion-icon>
+            <ion-icon data-test="habit-delete-btn" onClick={removeTask} name="trash-outline"></ion-icon>
         </Task>
     );
 }

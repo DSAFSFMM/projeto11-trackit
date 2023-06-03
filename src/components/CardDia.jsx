@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import check from "../assets/check.png";
 
-export default function CardDia(){
+export default function CardDia(props){
+
+    const {card} = props;
+    
     return(
         <Task>
-            <div>
-                Ler 1 capítulo de livro
+            <div data-test="today-habit-name" >
+                {card.name}
                 <Sequencia>
-                    <p>Sequência atual: 3 dias</p>
-                    <p>Seu recorde: 5 dias</p>
+                    <p data-test="today-habit-sequence">Sequência atual: {card.currentSequence}</p>
+                    <p data-test="today-habit-record">Seu recorde: {card.highestSequence}</p>
                 </Sequencia>
             </div>
             <button>
-                <img src={check} alt="check"/>
+                <img data-test="today-habit-check-btn" src={check} alt="check"/>
             </button>
         </Task>
     );
@@ -31,6 +34,7 @@ const Task = styled.div`
     font-size: 20px;
     line-height: 25px;
     color: #666666;
+    margin-bottom: 10px;
     button{
         width: 69px;
         height: 69px;

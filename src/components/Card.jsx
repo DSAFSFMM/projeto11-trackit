@@ -49,18 +49,18 @@ export default function Card(props){
     }
 
     return(
-        <Task>
+        <Task data-test="habit-create-container"> 
             <form onSubmit={criaHabito}>
-                <input type="text" placeholder="nome do hábito" value={habito} onChange={(event)=>setHabito(event.target.value)} required/>
+                <input data-test="habit-name-input" type="text" placeholder="nome do hábito" value={habito} onChange={(event)=>setHabito(event.target.value)} required/>
                 <Days>
-                    {days.map((day, index)=> <Day type="button" onClick={()=>selecionaDia(index)} key={index} selecionado={dias.includes(index)} >{day}</Day>)}
+                    {days.map((day, index)=> <Day data-test="habit-day" type="button" onClick={()=>selecionaDia(index)} key={index} selecionado={dias.includes(index)} >{day}</Day>)}
                 </Days>
                 <Save>
-                    <Cancel type="button" disabled={habilitado} onClick={()=>{setNovoCard(false);setAtualiza("cancela");}}>
+                    <Cancel data-test="habit-create-cancel-btn" type="button" disabled={habilitado} onClick={()=>{setNovoCard(false);setAtualiza("cancela");}}>
                         <p>Cancelar</p>
                     </Cancel>
                   
-                    <Confirm type="submit" disabled={habilitado}>{
+                    <Confirm data-test="habit-create-save-btn" type="submit" disabled={habilitado}>{
                     !habilitado ? "Salvar" : <ThreeDots
                         height="30"
                         width="30"

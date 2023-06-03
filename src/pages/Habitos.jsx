@@ -47,8 +47,8 @@ export default function Habitos(){
             <Body>
                 <Topo>
                     Meus hábitos
-                    <button>
-                        <p onClick={()=>setNovoCard(true)}>+</p>
+                    <button data-test="habit-create-btn" onClick={()=>setNovoCard(true)}>
+                        <p>+</p>
                     </button>
                 </Topo>
                 {tasks.map((task)=><CardFechado key={task.id} task={task} tasks={tasks} setTasks={setTasks} setAtualiza={setAtualiza}/>)}

@@ -41,11 +41,11 @@ export default function Cadastro() {
         <Tela>
             <img src={logo} alt="logo" />
             <Formulario onSubmit={fazCadastro} habilitado={habilitado}>
-                <input type="email" placeholder="email" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={habilitado} />
-                <input type="password" placeholder="senha" value={senha} onChange={(event) => setSenha(event.target.value)} required disabled={habilitado} />
-                <input type="text" placeholder="nome" value={nome} onChange={(event) => setNome(event.target.value)} required disabled={habilitado} />
-                <input type="text" placeholder="foto" value={foto} onChange={(event) => setFoto(event.target.value)} required disabled={habilitado} />
-                <button type="submit" disabled={habilitado}>{
+                <input data-test="email-input" type="email" placeholder="email" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={habilitado} />
+                <input data-test="password-input" type="password" placeholder="senha" value={senha} onChange={(event) => setSenha(event.target.value)} required disabled={habilitado} />
+                <input data-test="user-name-input" type="text" placeholder="nome" value={nome} onChange={(event) => setNome(event.target.value)} required disabled={habilitado} />
+                <input data-test="user-image-input" type="text" placeholder="foto" value={foto} onChange={(event) => setFoto(event.target.value)} required disabled={habilitado} />
+                <button data-test="signup-btn" type="submit" disabled={habilitado}>{
                     !habilitado ? "Cadastrar" : <ThreeDots
                         height="50"
                         width="50"
@@ -58,7 +58,7 @@ export default function Cadastro() {
                 }
                 </button>
             </Formulario>
-            <Link to={`/`}>
+            <Link data-test="login-link" to={`/`}>
                 <p>Já tem uma conta? Faça login!</p>
             </Link>
         </Tela>
