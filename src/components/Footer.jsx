@@ -1,14 +1,39 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { useContext } from "react";
+import { Contexto } from "./Contexto";
 
 export default function Footer(){
+
+    const {progresso} = useContext(Contexto);
+
     return(
         <Bottom data-test="menu">
             <Link data-test="history-link" to={`/habitos`}>
                 <p>Hábitos</p>
             </Link>
             <Link data-test="today-link" to={`/hoje`}>
-                <div>Hoje</div>
+                <div>
+                    <Container>
+                        <CircularProgressbar background={true} value={progresso} text={`Hoje`} styles={{
+                            trail: {
+                            stroke: 'transparent',
+                            },
+                            path: {
+                                stroke: `white`,
+                            },
+                            text: {
+                            fill: 'white',
+                            fontSize: '18px',
+                            },
+                            background: {
+                            fill: 'transparent',
+                            },
+                        }}/>
+                    </Container>
+                </div>
             </Link>
             <Link data-test="habit-link" to={`/historico`}>
                 <p>Histórico</p>
@@ -55,4 +80,9 @@ const Bottom = styled.div`
     a{
         text-decoration: none;
     }
+`;
+
+const Container = styled.span`
+    width: 79px;
+    height: 79px;
 `;
