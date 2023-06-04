@@ -57,7 +57,7 @@ export default function Hoje(){
             <Body>
                 <Topo progresso={progresso}>
                     <h1 data-test="today">{dayjs().format("dddd, DD/MM")}</h1>
-                    {progresso === 0? <p data-test="today-counter">Nenhum hábito concluído ainda</p> : <p data-test="today-counter">{progresso}% dos hábitos concluídos</p>}
+                    {progresso === 0 || progresso === "0"? <p data-test="today-counter">Nenhum hábito concluído ainda</p> : <p data-test="today-counter">{progresso}% dos hábitos concluídos</p>}
                 </Topo>
                 {cards.map((card)=><CardDia key={card.id} card={card} finished={finished} setFinished={setFinished}/>)}
             </Body>

@@ -16,8 +16,15 @@ export default function Card(props){
     const [habilitado, setHabilitado] = useState(false);
 
     function criaHabito(event){
+        
         event.preventDefault();
         setHabilitado(true);
+
+        if(habito === ""){
+            alert("Insira o nome do hábito");
+            setHabilitado(false);
+            return;
+        }
         
         const novoHabito = {
             name: habito,
@@ -54,7 +61,7 @@ export default function Card(props){
     return(
         <Task data-test="habit-create-container"> 
             <form onSubmit={criaHabito}>
-                <input data-test="habit-name-input" type="text" placeholder="nome do hábito" value={habito} onChange={(event)=>setHabito(event.target.value)} required/>
+                <input data-test="habit-name-input" type="text" placeholder="nome do hábito" value={habito} onChange={(event)=>setHabito(event.target.value)}/>
                 <Days>
                     {days.map((day, index)=> <Day disabled={habilitado} data-test="habit-day" type="button" onClick={()=>selecionaDia(index)} key={index} selecionado={dias.includes(index)} >{day}</Day>)}
                 </Days>

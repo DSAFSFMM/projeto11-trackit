@@ -36,6 +36,12 @@ export default function Habitos(){
             <Tela>
                 <Header/>
                 <Body>
+                    <Topo>
+                        Meus hábitos
+                        <button data-test="habit-create-btn" onClick={()=>setNovoCard(true)}>
+                            <p>+</p>
+                        </button>
+                    </Topo>
                     <p>Carregando habitos...</p>
                 </Body>
                 <Footer/>

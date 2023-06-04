@@ -33,7 +33,7 @@ export default function CardDia(props){
             <div>
                 <p data-test="today-habit-name">{card.name}</p>
                 <Sequencia>
-                    <Atual card={card} data-test="today-habit-sequence">Sequência atual: <span>{card.currentSequence} dias</span></Atual>
+                    <Atual card={card} >Sequência atual: <span data-test="today-habit-sequence">{card.currentSequence} dias</span></Atual>
                     <Recorde card={card} data-test="today-habit-record">Seu recorde: <span>{card.highestSequence} dias</span></Recorde>
                 </Sequencia>
             </div>
