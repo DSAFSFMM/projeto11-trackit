@@ -24,6 +24,8 @@ export default function Hoje(){
     const [cards, setCards] = useState(null);
     const [finished, setFinished] = useState([]);
 
+    console.log(progresso);
+
     const config = {
         headers:{
             Authorization: `Bearer ${user.token}`
@@ -34,7 +36,9 @@ export default function Hoje(){
         axios.get(`${BASE_URL}/habits/today`, config)
             .then((resposta)=>{
                 setCards(resposta.data);
-                setProgresso(((resposta.data.filter((item)=> item.done)).length/resposta.data.length*100).toFixed(0))
+                if(resposta.data.length > 0){
+                    setProgresso(((resposta.data.filter((item)=> item.done)).length/resposta.data.length*100).toFixed(0));
+                }
             })
             .catch((erro)=>console.log(erro.response));
     }, [finished]);
@@ -57,7 +61,7 @@ export default function Hoje(){
             <Body>
                 <Topo progresso={progresso}>
                     <h1 data-test="today">{dayjs().format("dddd, DD/MM")}</h1>
-                    {progresso === 0 || progresso === "0"? <p data-test="today-counter">Nenhum hábito concluído ainda</p> : <p data-test="today-counter">{progresso}% dos hábitos concluídos</p>}
+                    {progresso === 0 || progresso === "0" || progresso === NaN ? <p data-test="today-counter">Nenhum hábito concluído ainda</p> : <p data-test="today-counter">{progresso}% dos hábitos concluídos</p>}
                 </Topo>
                 {cards.map((card)=><CardDia key={card.id} card={card} finished={finished} setFinished={setFinished}/>)}
             </Body>

@@ -42,6 +42,7 @@ export default function Habitos(){
                             <p>+</p>
                         </button>
                     </Topo>
+                    {novoCard && <Card habito={habito} setHabito={setHabito} dias={dias} setDias={setDias} setAtualiza={setAtualiza} setNovoCard={setNovoCard}/>}
                     <p>Carregando habitos...</p>
                 </Body>
                 <Footer/>
