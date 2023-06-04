@@ -61,7 +61,7 @@ export default function Card(props){
     return(
         <Task data-test="habit-create-container"> 
             <form onSubmit={criaHabito}>
-                <input data-test="habit-name-input" type="text" placeholder="nome do hábito" value={habito} onChange={(event)=>setHabito(event.target.value)}/>
+                <input disabled={habilitado} data-test="habit-name-input" type="text" placeholder="nome do hábito" value={habito} onChange={(event)=>setHabito(event.target.value)}/>
                 <Days>
                     {days.map((day, index)=> <Day disabled={habilitado} data-test="habit-day" type="button" onClick={()=>selecionaDia(index)} key={index} selecionado={dias.includes(index)} >{day}</Day>)}
                 </Days>
