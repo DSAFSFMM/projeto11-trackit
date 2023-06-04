@@ -55,11 +55,11 @@ export default function Hoje(){
         <Tela>
             <Header/>
             <Body>
-                <Topo data-test="today">
-                    {dayjs().format("dddd, DD/MM")}
+                <Topo progresso={progresso}>
+                    <h1 data-test="today">{dayjs().format("dddd, DD/MM")}</h1>
                     {progresso === 0? <p data-test="today-counter">Nenhum hábito concluído ainda</p> : <p data-test="today-counter">{progresso}% dos hábitos concluídos</p>}
                 </Topo>
-                {cards.map((card)=><CardDia data-test="today-habit-container"  key={card.id} card={card} finished={finished} setFinished={setFinished}/>)}
+                {cards.map((card)=><CardDia key={card.id} card={card} finished={finished} setFinished={setFinished}/>)}
             </Body>
             <Footer/>
         </Tela>
@@ -88,9 +88,9 @@ const Topo = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 28px;
-    p{
+    p{ 
         font-size: 18px;
         line-height: 22px;
-        color: #BABABA;
+        color: ${(props)=>props.progresso > 0 ? "#8FC549": "#BABABA"};
     }
 `;

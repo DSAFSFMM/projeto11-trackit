@@ -9,12 +9,10 @@ import { ThreeDots } from "react-loader-spinner";
 
 export default function Card(props){
 
-    const {setAtualiza, setNovoCard} = props;
+    const {setAtualiza, setNovoCard, habito, setHabito, dias, setDias} = props;
     const {user} = useContext(Contexto);
 
     const days = ["D", "S", "T", "Q", "Q", "S", "S"];
-    const [habito, setHabito] = useState("");
-    const [dias, setDias] = useState([]);
     const [habilitado, setHabilitado] = useState(false);
 
     function criaHabito(event){
@@ -36,8 +34,13 @@ export default function Card(props){
             .then((resposta)=>{
                 setNovoCard(false);
                 setAtualiza(resposta.data.id);
+                setHabito("");
+                setDias([]);
             })
-            .catch((erro)=>{console.log(erro.response)});
+            .catch(()=>{
+                setHabilitado(false);
+                alert("Erro na criação do hábito");
+            });
     }
 
     function selecionaDia(index){
@@ -53,11 +56,11 @@ export default function Card(props){
             <form onSubmit={criaHabito}>
                 <input data-test="habit-name-input" type="text" placeholder="nome do hábito" value={habito} onChange={(event)=>setHabito(event.target.value)} required/>
                 <Days>
-                    {days.map((day, index)=> <Day data-test="habit-day" type="button" onClick={()=>selecionaDia(index)} key={index} selecionado={dias.includes(index)} >{day}</Day>)}
+                    {days.map((day, index)=> <Day disabled={habilitado} data-test="habit-day" type="button" onClick={()=>selecionaDia(index)} key={index} selecionado={dias.includes(index)} >{day}</Day>)}
                 </Days>
                 <Save>
                     <Cancel data-test="habit-create-cancel-btn" type="button" disabled={habilitado} onClick={()=>{setNovoCard(false);setAtualiza("cancela");}}>
-                        <p>Cancelar</p>
+                        Cancelar
                     </Cancel>
                   
                     <Confirm data-test="habit-create-save-btn" type="submit" disabled={habilitado}>{
@@ -135,12 +138,9 @@ const Cancel = styled.button`
     background: transparent;
     border: none;
     color:#52B6FF;
-    p{
-        font-size: 16px;
-        line-height: 20px;
-        text-align: center;
-        color: #52B6FF;
-    }
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
 `;
 
 const Confirm = styled.button`

@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function CardDia(props){
 
-    const {user, setProgresso, progresso} = useContext(Contexto);
+    const {user} = useContext(Contexto);
     const {card, setFinished, finished} = props;
 
     const config = {
@@ -29,16 +29,16 @@ export default function CardDia(props){
     }
     
     return(
-        <Task card={card}>
-            <div data-test="today-habit-name" >
-                {card.name}
+        <Task data-test="today-habit-container" card={card}>
+            <div>
+                <p data-test="today-habit-name">{card.name}</p>
                 <Sequencia>
                     <Atual card={card} data-test="today-habit-sequence">Sequência atual: <span>{card.currentSequence} dias</span></Atual>
                     <Recorde card={card} data-test="today-habit-record">Seu recorde: <span>{card.highestSequence} dias</span></Recorde>
                 </Sequencia>
             </div>
-            <button onClick={selecionaCard}>
-                <img data-test="today-habit-check-btn" src={check} alt="check"/>
+            <button data-test="today-habit-check-btn" onClick={selecionaCard}>
+                <img src={check} alt="check"/>
             </button>
         </Task>
     );

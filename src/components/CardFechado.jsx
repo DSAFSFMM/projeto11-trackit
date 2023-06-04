@@ -11,17 +11,18 @@ export default function CardFechado(props){
     const {task, tasks, setAtualiza, setTasks} = props;
 
     function removeTask(){
-
-        setTasks(tasks.filter((item)=> item.id !== task.id));
-        const config = {
-            headers:{
-                Authorization: `Bearer ${user.token}`
+        if(confirm("Tem certeza que deseja remover este hábito?")){
+            setTasks(tasks.filter((item)=> item.id !== task.id));
+            const config = {
+                headers:{
+                    Authorization: `Bearer ${user.token}`
+                }
             }
+    
+            axios.delete(`${BASE_URL}/habits/${task.id}`, config)
+                .then(()=>{setAtualiza(task.id * -1)})
+                .catch((erro)=>{console.log(erro.response)});
         }
-
-        axios.delete(`${BASE_URL}/habits/${task.id}`, config)
-            .then(()=>{setAtualiza(task.id * -1)})
-            .catch((erro)=>{console.log(erro.response)});
     }
 
     return(

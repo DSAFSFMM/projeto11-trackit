@@ -11,7 +11,7 @@ export default function Footer(){
 
     return(
         <Bottom data-test="menu">
-            <Link data-test="history-link" to={`/habitos`}>
+            <Link data-test="habit-link" to={`/habitos`}>
                 <p>Hábitos</p>
             </Link>
             <Link data-test="today-link" to={`/hoje`}>
@@ -35,7 +35,7 @@ export default function Footer(){
                     </Container>
                 </div>
             </Link>
-            <Link data-test="habit-link" to={`/historico`}>
+            <Link data-test="history-link" to={`/historico`}>
                 <p>Histórico</p>
             </Link>
         </Bottom>

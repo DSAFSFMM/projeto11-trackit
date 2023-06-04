@@ -17,6 +17,8 @@ export default function Habitos(){
     const [tasks, setTasks] = useState(null);
     const [novoCard, setNovoCard] = useState(false);
     const [atualiza, setAtualiza] = useState(0);
+    const [habito, setHabito] = useState("");
+    const [dias, setDias] = useState([]);
 
     const config = {
         headers:{
@@ -52,7 +54,7 @@ export default function Habitos(){
                     </button>
                 </Topo>
                 {tasks.map((task)=><CardFechado key={task.id} task={task} tasks={tasks} setTasks={setTasks} setAtualiza={setAtualiza}/>)}
-                {novoCard && <Card setAtualiza={setAtualiza} setNovoCard={setNovoCard}/>}
+                {novoCard && <Card habito={habito} setHabito={setHabito} dias={dias} setDias={setDias} setAtualiza={setAtualiza} setNovoCard={setNovoCard}/>}
                 {tasks.length === 0 && <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>}
             </Body>
             <Footer/>
