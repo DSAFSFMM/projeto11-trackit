@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import check from "../assets/check.png";
+import check from "../assets/check.svg";
 import { useContext } from "react";
 import { Contexto } from "./Contexto";
 import BASE_URL from "../constants/BASE_URL";
 import axios from "axios";
+import { ColorRing } from "react-loader-spinner";
 
 export default function CardDia(props){
 
     const {user} = useContext(Contexto);
-    const {card, setFinished, finished} = props;
+    const {card, setFinished, finished, loading, setLoading} = props;
 
     const config = {
         headers:{
@@ -17,6 +18,7 @@ export default function CardDia(props){
     }
 
     function selecionaCard(){
+        setLoading([card.id]);
         if(card.done){
             axios.post(`${BASE_URL}/habits/${card.id}/uncheck`, {}, config)
                 .then(()=>{setFinished(finished.filter((id)=> id !== card.id))})
@@ -25,7 +27,7 @@ export default function CardDia(props){
             axios.post(`${BASE_URL}/habits/${card.id}/check`, {}, config)
                 .then(()=>setFinished([...finished, card.id]))
                 .catch((erro)=>console.log(erro.response));
-        }
+            }
     }
     
     return(
@@ -38,7 +40,16 @@ export default function CardDia(props){
                 </Sequencia>
             </div>
             <button data-test="today-habit-check-btn" onClick={selecionaCard}>
-                <img src={check} alt="check"/>
+                {loading.includes(card.id)?<ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    colors={['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF']}
+                    />
+                    :<img src={check} alt="check"/>}
             </button>
         </Task>
     );
@@ -59,6 +70,9 @@ const Task = styled.div`
     color: #666666;
     margin-bottom: 10px;
     button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 69px;
         height: 69px;
         background: ${(props)=>props.card.done?"#8FC549":"#EBEBEB"};

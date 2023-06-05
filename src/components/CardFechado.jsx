@@ -3,6 +3,7 @@ import { Contexto } from "./Contexto";
 import { useContext } from "react";
 import axios from "axios";
 import BASE_URL from "../constants/BASE_URL";
+import dump from "../assets/dump.svg";
 
 export default function CardFechado(props){
 
@@ -31,7 +32,7 @@ export default function CardFechado(props){
             <Days>
                 {days.map((day, index)=> <Day data-test="habit-day" key={index} selecionado={task.days.includes(index)} disabled>{day}</Day>)}
             </Days>
-            <ion-icon data-test="habit-delete-btn" onClick={removeTask} name="trash-outline"></ion-icon>
+            <img src={dump} alt="lixeira" data-test="habit-delete-btn" onClick={removeTask}/>
         </Task>
     );
 }
@@ -44,7 +45,7 @@ const Task = styled.div`
     height: 90px;
     background-color: white;
     border-radius: 5px;
-    ion-icon{
+    img{
         position: absolute;
         top: 10px;
         right: 10px;

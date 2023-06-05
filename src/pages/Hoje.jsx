@@ -9,6 +9,7 @@ import BASE_URL from "../constants/BASE_URL";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br'
 import updateLocale from "dayjs/plugin/updateLocale";
+import { ColorRing } from "react-loader-spinner";
 
 export default function Hoje(){
 
@@ -23,8 +24,7 @@ export default function Hoje(){
     const {user, progresso, setProgresso} = useContext(Contexto);
     const [cards, setCards] = useState(null);
     const [finished, setFinished] = useState([]);
-
-    console.log(progresso);
+    const [loading, setLoading] = useState([]);
 
     const config = {
         headers:{
@@ -38,18 +38,30 @@ export default function Hoje(){
                 setCards(resposta.data);
                 if(resposta.data.length > 0){
                     setProgresso(((resposta.data.filter((item)=> item.done)).length/resposta.data.length*100).toFixed(0));
+                    setLoading([]);
                 }
             })
-            .catch((erro)=>console.log(erro.response));
+            .catch((erro)=>{
+                console.log(erro.response);
+                setLoading([]);
+            });
     }, [finished]);
 
     if(cards === null){
         return(
             <Tela>
                 <Header/>
-                <Body>
-                    <p>Carregando habitos de hoje...</p>
-                </Body>
+                <Loading>
+                    <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    colors={['#52B6FF', '#52B6FF', '#52B6FF', '#52B6FF', '#52B6FF']}
+                    />
+                </Loading>
                 <Footer/>
             </Tela>
         );
@@ -61,9 +73,9 @@ export default function Hoje(){
             <Body>
                 <Topo progresso={progresso}>
                     <h1 data-test="today">{dayjs().format("dddd, DD/MM")}</h1>
-                    {progresso === 0 || progresso === "0" || progresso === NaN ? <p data-test="today-counter">Nenhum hábito concluído ainda</p> : <p data-test="today-counter">{progresso}% dos hábitos concluídos</p>}
+                    {progresso === 0 || progresso === "0" ? <p data-test="today-counter">Nenhum hábito concluído ainda</p> : <p data-test="today-counter">{progresso}% dos hábitos concluídos</p>}
                 </Topo>
-                {cards.map((card)=><CardDia key={card.id} card={card} finished={finished} setFinished={setFinished}/>)}
+                {cards.map((card)=><CardDia loading={loading} setLoading={setLoading} key={card.id} card={card} finished={finished} setFinished={setFinished}/>)}
             </Body>
             <Footer/>
         </Tela>
@@ -74,6 +86,7 @@ const Tela = styled.div`
     background-color: #F2F2F2;
     min-height: 100dvh;
     padding-top: 22px;
+    padding-bottom: 92px;
 `;
 
 const Body = styled.div`
@@ -97,4 +110,11 @@ const Topo = styled.div`
         line-height: 22px;
         color: ${(props)=>props.progresso > 0 ? "#8FC549": "#BABABA"};
     }
+`;
+
+const Loading = styled.div`
+    min-height: 100dvh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;

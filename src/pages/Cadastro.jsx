@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "./../assets/logo.png"
+import logo from "./../assets/logo.svg"
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";

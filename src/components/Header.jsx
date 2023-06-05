@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import profile from "../assets/profile.png";
-import logo from "../assets/trackIt.png";
+import logo from "../assets/logo-mini.svg";
 import { useContext } from "react";
 import { Contexto } from "../components/Contexto";
 

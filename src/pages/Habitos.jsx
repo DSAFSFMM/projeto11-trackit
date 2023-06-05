@@ -9,6 +9,8 @@ import { Contexto } from "../components/Contexto";
 import axios from "axios";
 import BASE_URL from "../constants/BASE_URL";
 import { useState } from "react";
+import { ColorRing } from "react-loader-spinner";
+import plus from "../assets/plus.svg"
 
 
 export default function Habitos(){
@@ -39,11 +41,21 @@ export default function Habitos(){
                     <Topo>
                         Meus hábitos
                         <button data-test="habit-create-btn" onClick={()=>setNovoCard(true)}>
-                            <p>+</p>
+                            <img src={plus} alt="pluss" />
                         </button>
                     </Topo>
                     {novoCard && <Card habito={habito} setHabito={setHabito} dias={dias} setDias={setDias} setAtualiza={setAtualiza} setNovoCard={setNovoCard}/>}
-                    <p>Carregando habitos...</p>
+                    <Loading>
+                        <ColorRing
+                        visible={true}
+                        height="80"
+                        width="80"
+                        ariaLabel="blocks-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="blocks-wrapper"
+                        colors={['#52B6FF', '#52B6FF', '#52B6FF', '#52B6FF', '#52B6FF']}
+                        />
+                    </Loading>
                 </Body>
                 <Footer/>
             </Tela>
@@ -57,7 +69,7 @@ export default function Habitos(){
                 <Topo>
                     Meus hábitos
                     <button data-test="habit-create-btn" onClick={()=>setNovoCard(true)}>
-                        <p>+</p>
+                        <img src={plus} alt="pluss" />
                     </button>
                 </Topo>
                 {tasks.map((task)=><CardFechado key={task.id} task={task} tasks={tasks} setTasks={setTasks} setAtualiza={setAtualiza}/>)}
@@ -112,4 +124,11 @@ const Topo = styled.div`
             font-size: 27px;
         }
     }
+`;
+
+const Loading = styled.div`
+    margin-top: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
